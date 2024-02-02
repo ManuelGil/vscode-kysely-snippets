@@ -1,23 +1,43 @@
 {
-  "Kysely instance": {
-    "prefix": ["kysely_new_kysely", "new Kysely"],
+  "Kysely PostgresDialect": {
+    "prefix": ["kysely_new_dialect_pg", "new PostgresDialect"],
     "scope": "javascript,typescript",
-    "body": ["const db = new Kysely<${1:database}>({", "  dialect: new PostgresDialect({", "    pool: async () => new Pool(${2:config}),", "  }),", "})"]
+    "body": ["const dialect = new PostgresDialect({", "  pool: async () => new Pool({", "    user: ${1:user},", "    password: ${2:password},", "    host: ${3:host},", "    port: ${4:port},", "    database: ${5:database},", "  }),", "}),"]
   },
-  "Kysely dialect": {
-    "prefix": ["kysely_new_dialect", "new PostgresDialect"],
+  "Kysely MysqlDialect": {
+    "prefix": ["kysely_new_dialect_mysql", "new MysqlDialect"],
     "scope": "javascript,typescript",
-    "body": ["const dialect = new PostgresDialect({", "  pool: async () => new Pool(${1:config}),", "}),"]
+    "body": ["const dialect = new MysqlDialect({", "  pool: async () => new createPool({", "    user: ${1:user},", "    password: ${2:password},", "    host: ${3:host},", "    port: ${4:port},", "    database: ${5:database},", "  }),", "}),"]
   },
-  "Kysely pool": {
-    "prefix": ["kysely_new_pool", "new Pool"],
+  "Kysely MssqlDialect": {
+    "prefix": ["kysely_new_dialect_mssql", "new MssqlDialect"],
     "scope": "javascript,typescript",
-    "body": ["const pool = new Pool({", "  user: ${1:user},", "  password: ${2:password},", "  host: ${3:host},", "  port: ${4:port},", "  database: ${5:database},", "}),"]
+    "body": ["const dialect = new MssqlDialect({", "  tarn: {", "    ...tarn,", "    options: {", "      min: 0,", "      max: 10,", "    },", "  },", "  tedious: {", "    ...tedious,", "    connectionFactory: () => new tedious.Connection({", "      authentication: {", "        options: {", "          password: 'password',", "          userName: 'username',", "        },", "        type: 'default',", "      },", "      options: {", "        database: 'some_db',", "        port: 1433,", "        trustServerCertificate: true,", "      },", "      server: 'localhost',", "    }),", "  },", "}),"]
+  },
+  "Kysely SqliteDialect": {
+    "prefix": ["kysely_new_dialect_sqlite", "new SqliteDialect"],
+    "scope": "javascript,typescript",
+    "body": ["const dialect = new SqliteDialect({", "  database: new SQLite('${1:storage}'),", "})"]
+  },
+  "Kysely new db": {
+    "prefix": ["kysely_new_db", "new Database"],
+    "scope": "javascript,typescript",
+    "body": "const db = new Kysely<Database>({ dialect })"
   },
   "Kysely migrator": {
     "prefix": ["kysely_new_migrator", "new Migrator"],
     "scope": "javascript,typescript",
     "body": ["const migrator = new Migrator({", "  ${1:db},", "  provider: new FileMigrationProvider({", "    ${2:fs},", "    ${3:path},", "    migrationFolder: path.join(__dirname, '${4:migrations}'),", "  }),", "})"]
+  },
+  "Kysely id generated": {
+    "prefix": ["kysely_id_generated", "Generated"],
+    "scope": "javascript,typescript",
+    "body": "id: Generated<number>"
+  },
+  "Kysely ColumnType": {
+    "prefix": ["kysely_column_type", "ColumnType"],
+    "scope": "javascript,typescript",
+    "body": "id: ColumnType<{1:}>"
   },
   "Kysely selectable": {
     "prefix": ["kysely_selectable", "Selectable"],
@@ -62,6 +82,6 @@
   "Kysely delete from": {
     "prefix": ["kysely_delete_from", "deleteFrom"],
     "scope": "javascript,typescript",
-    "body": ["await db", "  .deleteFrom('${1:table}')", "  .where('${2:column}', '=', ${3:value})", "  .execute()"]
+    "body": ["await db", "  .deleteFrom('${1:table}')", "  .where('${2:column}', '=', ${3:value})", "  .returningAll()", "  .execute()"]
   }
 }

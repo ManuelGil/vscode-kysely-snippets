@@ -21,6 +21,23 @@ Type part of snippet, press `Tab` or `Enter`, and the snippet unfolds. Below is 
 
 | Snippet | Purpose |
 | --- | --- |
+| kysely_new_dialect_pg | new PostgresDialect |
+| kysely_new_dialect_mysql | new MysqlDialect |
+| kysely_new_dialect_mssql | new MssqlDialect |
+| kysely_new_dialect_sqlite | new SqliteDialect |
+| kysely_new_db | new Database |
+| kysely_new_migrator | new Migrator |
+| kysely_id_generated | Generated |
+| kysely_column_type | ColumnType |
+| kysely_selectable | Selectable |
+| kysely_insertable | Insertable |
+| kysely_updateable | Updateable |
+| kysely_create_table | createTable |
+| kysely_create_index | createIndex |
+| kysely_insert_into | insertInto |
+| kysely_select_from | selectFrom |
+| kysely_update_table | updateTable |
+| kysely_delete_from | deleteFrom |
 
 ## Connect with me
 
