@@ -1,0 +1,67 @@
+{
+  "Kysely instance": {
+    "prefix": ["kysely_new_kysely", "new Kysely"],
+    "scope": "javascript,typescript",
+    "body": ["const db = new Kysely<${1:database}>({", "  dialect: new PostgresDialect({", "    pool: async () => new Pool(${2:config}),", "  }),", "})"]
+  },
+  "Kysely dialect": {
+    "prefix": ["kysely_new_dialect", "new PostgresDialect"],
+    "scope": "javascript,typescript",
+    "body": ["const dialect = new PostgresDialect({", "  pool: async () => new Pool(${1:config}),", "}),"]
+  },
+  "Kysely pool": {
+    "prefix": ["kysely_new_pool", "new Pool"],
+    "scope": "javascript,typescript",
+    "body": ["const pool = new Pool({", "  user: ${1:user},", "  password: ${2:password},", "  host: ${3:host},", "  port: ${4:port},", "  database: ${5:database},", "}),"]
+  },
+  "Kysely migrator": {
+    "prefix": ["kysely_new_migrator", "new Migrator"],
+    "scope": "javascript,typescript",
+    "body": ["const migrator = new Migrator({", "  ${1:db},", "  provider: new FileMigrationProvider({", "    ${2:fs},", "    ${3:path},", "    migrationFolder: path.join(__dirname, '${4:migrations}'),", "  }),", "})"]
+  },
+  "Kysely selectable": {
+    "prefix": ["kysely_selectable", "Selectable"],
+    "scope": "javascript,typescript",
+    "body": "export type ${1:SelectableName} = Selectable<${2:TableName}>"
+  },
+  "Kysely insertable": {
+    "prefix": ["kysely_insertable", "Insertable"],
+    "scope": "javascript,typescript",
+    "body": "export type ${1:InsertableName} = Insertable<${2:TableName}>"
+  },
+  "Kysely updateable": {
+    "prefix": ["kysely_updateable", "Updateable"],
+    "scope": "javascript,typescript",
+    "body": "export type ${1:UpdateableName} = Updateable<${2:TableName}>"
+  },
+  "Kysely create table": {
+    "prefix": ["kysely_create_table", "createTable"],
+    "scope": "javascript,typescript",
+    "body": ["await db.schema", "  .createTable('${1:table}')", "  .addColumn('${2:column}', '${3:type}', (col) =>", "    col.${4:primaryKey}().${5:defaultTo}(sql`${6:gen_random_uuid()}`)", "  )", "  .execute()"]
+  },
+  "Kysely create index": {
+    "prefix": ["kysely_create_index", "createIndex"],
+    "scope": "javascript,typescript",
+    "body": ["await db.schema", "  .createIndex('${1:index}')", "  .on('${2:table}')", "  .column('${3:column}')", "  .execute()"]
+  },
+  "Kysely insert into": {
+    "prefix": ["kysely_insert_into", "insertInto"],
+    "scope": "javascript,typescript",
+    "body": ["await db", "  .insertInto('${1:table}')", "  .values(${2:values})", "  .returningAll()", "  .executeTakeFirstOrThrow()"]
+  },
+  "Kysely select from": {
+    "prefix": ["kysely_select_from", "selectFrom"],
+    "scope": "javascript,typescript",
+    "body": ["await db", "  .selectFrom('${1:table} as ${2:alias}')", "  .selectAll('${2:alias}')", "  .innerJoin('${3:table} as ${4:alias}', '${2:alias}.${5:column}', '${4:alias}.${6:column}')", "  .where('${4:alias}.${6:column}', '=', ${7:value})", "  .executeTakeFirst()"]
+  },
+  "Kysely update table": {
+    "prefix": ["kysely_update_table", "updateTable"],
+    "scope": "javascript,typescript",
+    "body": ["await db", "  .updateTable('${1:table}')", "  .where('${2:column}', '=', ${3:value})", "  .set({ ${4:column}: ${5:value} })", "  .execute()"]
+  },
+  "Kysely delete from": {
+    "prefix": ["kysely_delete_from", "deleteFrom"],
+    "scope": "javascript,typescript",
+    "body": ["await db", "  .deleteFrom('${1:table}')", "  .where('${2:column}', '=', ${3:value})", "  .execute()"]
+  }
+}
