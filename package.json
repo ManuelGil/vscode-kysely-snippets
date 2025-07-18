@@ -2,7 +2,7 @@
   "name": "vscode-kysely-snippets",
   "displayName": "Kysely Snippets",
   "description": "This extension for Visual Studio Code adds snippets for Kysely",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icon": "icon.png",
   "license": "MIT",
   "publisher": "imgildev",
